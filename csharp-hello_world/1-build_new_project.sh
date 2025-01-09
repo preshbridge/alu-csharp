@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status.
+# Exit immediately if a command exits with a non-zero status
 set -e
 
 # Function to display usage information
@@ -16,8 +16,6 @@ if [ -z "$1" ]; then
 fi
 
 PROJECT_NAME=$1
-
-echo "Creating a new .NET project: $PROJECT_NAME"
 
 # Step 1: Create the project folder
 mkdir -p $PROJECT_NAME
@@ -61,6 +59,9 @@ dotnet restore
 
 # Step 6: Build the project
 echo "Building the project..."
-dotnet build
+if ! dotnet build; then
+    echo "Build failed."
+    exit 1
+fi
 
-echo "Project $PROJECT_NAME has been successfully created!"
+echo "Build succeeded!"
