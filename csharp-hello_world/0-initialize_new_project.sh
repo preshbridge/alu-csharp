@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Initialize a new C# Console Application project
-dotnet new console -n 0-new_project
+# Create a folder titled 0-new_project
+mkdir -p 0-new_project
 
-# Navigate into the newly created project directory
-cd 0-new_project
+# Navigate into the folder
+cd 0-new_project || exit
 
-# Restore the required packages
-dotnet restore
+# Initialize a new C# project
+dotnet new console
 
-# Display success message
-echo "The new C# project has been created and packages restored successfully."
+# Return to the original directory
+cd ..
