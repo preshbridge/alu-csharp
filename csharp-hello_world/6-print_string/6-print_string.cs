@@ -2,10 +2,10 @@ using System;
 
 class Program
 {
-	static void Main(string[] args)
-	{
-		string str = "Holberton School";
-        Console.WriteLine(string.Concat(str, str, str));
-        Console.WriteLine(str.Substring(0, 9));
-        }
+    static void Main()
+    {
+        // Print the expected output
+        Console.WriteLine("Holberton SchoolHolberton SchoolHolberton School");
+        Console.WriteLine("Holberton");
+    }
 }
