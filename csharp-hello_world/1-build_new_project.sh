@@ -18,6 +18,7 @@ fi
 PROJECT_NAME=$1
 
 # Step 1: Create the project folder
+echo "Creating project folder: $PROJECT_NAME"
 mkdir -p $PROJECT_NAME
 cd $PROJECT_NAME
 
@@ -59,9 +60,13 @@ dotnet restore
 
 # Step 6: Build the project
 echo "Building the project..."
-if ! dotnet build; then
-    echo "Build failed."
+
+# Debug output for dotnet build
+dotnet build > build_output.log 2>&1
+if [ $? -eq 0 ]; then
+    echo "Build succeeded!"
+else
+    echo "Build failed. Check build_output.log for details."
+    cat build_output.log
     exit 1
 fi
-
-echo "Build succeeded!"
