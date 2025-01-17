@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# Create a new directory named 1-new_project
-mkdir -p 1-new_project
-
-# Navigate into the 1-new_project directory
+dotnet new console -n 1-new_project
 cd 1-new_project
-
-# Initialize a new C# console project
-dotnet new console
-
-# Build the C# project
 dotnet build
