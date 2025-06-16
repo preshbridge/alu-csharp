@@ -1,4 +1,4 @@
-﻿/// <summary>
+﻿﻿/// <summary>
 /// Generic class Queue
 /// </summary>
 /// <typeparam name="T"></typeparam>

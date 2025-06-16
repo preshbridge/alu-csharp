@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 /// <summary>
 /// A generic queue.
 /// </summary>
