@@ -1,101 +1,151 @@
-/// <summary>
-/// Generic class Queue
-/// </summary>
-/// <typeparam name="T"></typeparam>
+using System;
 
+/// <summary>
+/// A generic queue.
+/// </summary>
+/// <typeparam name="T">Element type.</typeparam>
 public class Queue<T>
 {
     /// <summary>
-    /// Head of the Queue
-    /// </summary>
-    public Node? head;
-    /// <summary>
-    /// Tail of the Queue
-    /// </summary>
-    public Node? tail;
-    /// <summary>
-    /// Count of the Nodes
-    /// </summary>
-    public int count;
-    /// <summary>
-    /// The Node class
+    /// Node class representing each element in the queue.
     /// </summary>
     public class Node
     {
         /// <summary>
-        /// Value of a node
+        /// Gets or sets the value of the node.
         /// </summary>
-        public T? value = default;
-        /// <summary>
-        /// Next pointer of a node
-        /// </summary>
-        public Node? next = null;
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="v"></param>
-        public Node(T v) {
-            value = v;
-            next = null;
-        }
+        public T? Value { get; set; }
         
+        /// <summary>
+        /// Gets or sets the next node in the queue.
+        /// </summary>
+        public Node? Next { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the Node class with a specified value.
+        /// </summary>
+        /// <param name="value">The value of the node.</param>
+        public Node(T value)
+        {
+            Value = value;
+            Next = null;
+        }
     }
+
     /// <summary>
-    /// Method that returns the type of the Queue
+    /// Represents the first node in the queue.
     /// </summary>
-    /// <returns></returns>
+    protected Node? head;
+
+    /// <summary>
+    /// Represents the last node in the queue.
+    /// </summary>
+    protected Node? tail;
+
+    /// <summary>
+    /// Represents the number of items in the queue.
+    /// </summary>
+    private int count;
+
+    /// <summary>
+    /// Initializes a new instance of the Queue class.
+    /// </summary>
+    public Queue()
+    {
+        head = null;
+        tail = null;
+        count = 0;
+    }
+
+    /// <summary>
+    /// Adds a new item to the end of the queue.
+    /// </summary>
+    /// <param name="value">The value to add to the queue.</param>
+    public void Enqueue(T value)
+    {
+        Node newNode = new Node(value);
+        if (head == null)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            tail!.Next = newNode;
+            tail = newNode;
+        }
+        count++;
+    }
+
+    /// <summary>
+    /// Removes and returns the first item from the queue.
+    /// </summary>
+    /// <returns>The first item in the queue.</returns>
+    public T? Dequeue()
+    {
+        T? currentValue;
+        if (count == 0)
+        {
+            Console.WriteLine("Queue is empty");
+            return default(T);
+        }
+        else
+        {
+            count--;
+            currentValue = head!.Value;
+            head = head.Next;
+        }
+        return currentValue;
+    }
+
+    /// <summary>
+    /// Returns the first item in the queue without removing it.
+    /// </summary>
+    /// <returns>The first item in the queue.</returns>
+    public T? Peek()
+    {
+        if (count == 0)
+        {
+            Console.WriteLine("Queue is empty");
+            return default(T);
+        }
+        return head!.Value;
+    }
+
+    /// <summary>
+    /// Prints all items in the queue.
+    /// </summary>
+    public void Print()
+    {
+        if (count == 0)
+        {
+            Console.WriteLine("Queue is empty");
+            return;
+        }
+
+        Node? current = head;
+        while (current != null)
+        {
+            Console.WriteLine(current.Value);
+            current = current.Next;
+        }
+    }
+
+    /// <summary>
+    /// Gets the type of elements stored in the queue.
+    /// </summary>
+    /// <returns>The type of elements in the queue.</returns>
     public Type CheckType()
     {
         return typeof(T);
     }
 
     /// <summary>
-    /// Method that adds an item to the queue
+    /// Gets the number of items in the queue.
     /// </summary>
-    /// <param name="value"></param>
-    public void Enqueue(T? value) {
-        Node newNode = new Node(value!);
-        if(head == null) {
-            head = newNode;
-            tail = newNode;
-        }else {
-            tail!.next = newNode;
-            tail = newNode;
-        }
-        count++;
-    }
-    /// <summary>
-    /// A method to remove the first element in the queue
-    /// </summary>
-    /// <returns></returns>
-    public T Dequeue() {
-        if (head == null) {
-            Console.WriteLine("Queue is empty");
-            return default(T)!;
-        } else {
-            Node current = head;
-            head = current.next;
-            count--;
-            return current!.value!;
-        }
-    }
-    /// <summary>
-    /// A method to return the first element in th queue
-    /// </summary>
-    /// <returns></returns>
-    public T Peek() {
-        if (head ==  null) {
-            Console.WriteLine("Queue is empty");
-            return default(T)!;
-        } else {
-            return head.value!;
-        }
-    }
-    /// <summary>
-    /// Method to count all the nodes of a queue
-    /// </summary>
-    /// <returns></returns>
-    public int Count() {
+    /// <returns>The number of items in the queue.</returns>
+    public int Count()
+    {
         return count;
     }
 }

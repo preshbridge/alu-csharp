@@ -1,4 +1,5 @@
-﻿﻿
+﻿﻿using System;
+
 /// <summary>
 /// A generic queue.
 /// </summary>
