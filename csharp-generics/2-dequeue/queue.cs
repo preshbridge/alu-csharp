@@ -1,121 +1,67 @@
 ﻿﻿using System;
 
-/// <summary>
-/// A generic queue.
-/// </summary>
-/// <typeparam name="T">Element type.</typeparam>
+public class Node<T>
+{
+    public T Value;
+    public Node<T> Next;
+
+    public Node(T value)
+    {
+        Value = value;
+        Next = null;
+    }
+}
+
 public class Queue<T>
 {
-    /// <summary>
-    /// A node in the queue.
-    /// </summary>
-    public class Node
-    {
-        /// <summary>
-        /// Node value.
-        /// </summary>
-        public T Value { get; set; }
-        
-        /// <summary>
-        /// Next node.
-        /// </summary>
-        public Node Next { get; set; }
-
-        /// <summary>
-        /// Creates a node with a value.
-        /// </summary>
-        /// <param name="value">Node value.</param>
-        public Node(T value)
-        {
-            Value = value;
-            Next = null;
-        }
-    }
-
-    /// <summary>
-    /// Queue head.
-    /// </summary>
-    public Node Head { get; private set; }
-    
-    /// <summary>
-    /// Queue tail.
-    /// </summary>
-    public Node Tail { get; private set; }
-    
-    /// <summary>
-    /// Node count.
-    /// </summary>
+    private Node<T> head;
+    private Node<T> tail;
     private int count;
 
-    /// <summary>
-    /// Initializes the queue.
-    /// </summary>
     public Queue()
     {
-        Head = null;
-        Tail = null;
+        head = null;
+        tail = null;
         count = 0;
     }
 
-    /// <summary>
-    /// Adds a node to the end.
-    /// </summary>
-    /// <param name="value">Node value.</param>
     public void Enqueue(T value)
     {
-        Node newNode = new Node(value);
-        if (Tail == null)
+        Node<T> newNode = new Node<T>(value);
+        if (tail != null)
         {
-            Head = newNode;
+            tail.Next = newNode;
         }
-        else
+        tail = newNode;
+        if (head == null)
         {
-            Tail.Next = newNode;
+            head = newNode;
         }
-        Tail = newNode;
         count++;
     }
 
-    /// <summary>
-    /// Removes the first node from the queue and returns its value.
-    /// </summary>
-    /// <returns>The value of the first node.</returns>
     public T Dequeue()
     {
-        if (Head == null)
+        if (head == null)
         {
             Console.WriteLine("Queue is empty");
-            return default(T); // Return default value for type T (null for reference types, 0 for value types)
+            return default(T); // Return default value for type T
         }
 
-        T value = Head.Value;
-        Head = Head.Next;
+        T value = head.Value;
+        head = head.Next;
         count--;
 
-        if (Head == null)
+        if (head == null) // If the queue is now empty, set tail to null
         {
-            Tail = null;
+            tail = null;
         }
 
         return value;
     }
 
-    /// <summary>
-    /// Gets the node count.
-    /// </summary>
-    /// <returns>Node count.</returns>
     public int Count()
     {
         return count;
     }
-
-    /// <summary>
-    /// Gets the element type.
-    /// </summary>
-    /// <returns>Element type.</returns>
-    public Type CheckType()
-    {
-        return typeof(T);
-    }
-
 }
